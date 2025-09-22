@@ -13,12 +13,12 @@ module LegalInterestStrategies
     YAML.load_file(path)
   end
 
-  def self.business_rates_for(country_code)
+  def self.business_rates_for_country(country_code)
     data = for_country(country_code)
     data["strategies"].find { |strategy| strategy["business"] }.fetch("rates", nil)
   end
 
-  def self.consumer_rates_for(country_code)
+  def self.consumer_rates_for_country(country_code)
     data = for_country(country_code)
     data["strategies"].find { |strategy| strategy["consumer"] }.fetch("rates", nil)
   end
