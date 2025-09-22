@@ -4,6 +4,18 @@ strategies:
     consumer: false
     source: "https://financien.belgium.be/sites/default/files/thesaurie/Wettelijke%20rentevoet%20tweede%20semestre%202025.pdf"
     rates:
+      - from_date: "1970-07-01"
+        rate: 6.5
+      - from_date: "1974-11-01"
+        rate: 8.0
+      - from_date: "1981-08-01"
+        rate: 12.0
+      - from_date: "1985-08-01"
+        rate: 10.0
+      - from_date: "1986-08-01"
+        rate: 8.0
+      - from_date: "1996-09-01"
+        rate: 7.0
       - from_date: "2002-08-02"
         rate: 10.5
       - from_date: "2003-01-01"
