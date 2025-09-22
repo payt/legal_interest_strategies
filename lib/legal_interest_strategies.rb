@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "yaml"
 
 module LegalInterestStrategies
@@ -6,21 +8,18 @@ module LegalInterestStrategies
   def self.for_country(country_code)
     path = File.expand_path("legal_interest_strategies/data/strategies/#{country_code}.yml", __dir__)
 
-    unless File.exist?(path)
-      raise CountryNotFound, "No strategy found for country code: #{country_code}"
-    end
+    raise CountryNotFound, "No strategy found for country code: #{country_code}" unless File.exist?(path)
 
     YAML.load_file(path)
   end
 
-  def self.business_strategy_for(country_code)
+  def self.business_rates_for(country_code)
     data = for_country(country_code)
-    data["strategies"].find { |strategy| strategy["business"] }
+    data["strategies"].find { |strategy| strategy["business"] }.fetch("rates", nil)
   end
 
-  def self.consumer_strategy_for(country_code)
+  def self.consumer_rates_for(country_code)
     data = for_country(country_code)
-    data["strategies"].find { |strategy| strategy["consumer"] }
+    data["strategies"].find { |strategy| strategy["consumer"] }.fetch("rates", nil)
   end
 end
-

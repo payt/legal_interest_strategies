@@ -1,9 +1,9 @@
-require:
+plugins:
   - rubocop-performance
   - rubocop-rspec
 
 AllCops:
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 3.4
   NewCops: enable
 
 Style/Documentation:
