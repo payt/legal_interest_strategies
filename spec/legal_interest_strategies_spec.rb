@@ -21,15 +21,15 @@ RSpec.describe LegalInterestStrategies do
     end
   end
 
-  describe ".business_rates_for" do
-    subject(:business_rates_for) { described_class.business_rates_for(country_code) }
+  describe ".business_rates_for_country" do
+    subject(:business_rates_for_country) { described_class.business_rates_for_country(country_code) }
 
     it "returns a hash with rates" do
-      expect(business_rates_for).to all(be_a(Hash))
+      expect(business_rates_for_country).to all(be_a(Hash))
     end
 
     it "returns the right last business strategy rate" do
-      expect(business_rates_for.last).to eq({ "from_date" => "2025-07-01", "rate" => 10.15 })
+      expect(business_rates_for_country.last).to eq({ "from_date" => "2025-07-01", "rate" => 10.15 })
     end
 
     context "when there is no business strategy" do
@@ -40,20 +40,20 @@ RSpec.describe LegalInterestStrategies do
       end
 
       it "returns nil" do
-        expect(business_rates_for).to be_nil
+        expect(business_rates_for_country).to be_nil
       end
     end
   end
 
-  describe ".consumer_rates_for" do
-    subject(:consumer_rates_for) { described_class.consumer_rates_for(country_code) }
+  describe ".consumer_rates_for_country" do
+    subject(:consumer_rates_for_country) { described_class.consumer_rates_for_country(country_code) }
 
     it "returns a hash with rates" do
-      expect(consumer_rates_for).to all(be_a(Hash))
+      expect(consumer_rates_for_country).to all(be_a(Hash))
     end
 
     it "returns the right last consumer strategy rate" do
-      expect(consumer_rates_for.last).to eq({ "from_date" => "2025-01-01", "rate" => 6.0 })
+      expect(consumer_rates_for_country.last).to eq({ "from_date" => "2025-01-01", "rate" => 6.0 })
     end
 
     context "when there is no consumer strategy" do
@@ -64,7 +64,7 @@ RSpec.describe LegalInterestStrategies do
       end
 
       it "returns nil" do
-        expect(consumer_rates_for).to be_nil
+        expect(consumer_rates_for_country).to be_nil
       end
     end
   end
