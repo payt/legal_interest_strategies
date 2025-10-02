@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
-require "legal_interest_strategies/version"
-
 Gem::Specification.new do |spec|
   spec.name        = "legal_interest_strategies"
-  spec.version     = LegalInterestStrategies::Version::STRING
+  spec.version     = "0.0.0"
   spec.summary     = "Legal Interest Strategies"
   spec.authors     = ["Payt devs"]
   spec.email       = "devs@paytsoftware.com"
