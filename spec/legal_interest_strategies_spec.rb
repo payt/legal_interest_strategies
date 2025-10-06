@@ -69,3 +69,13 @@ RSpec.describe LegalInterestStrategies do
     end
   end
 end
+
+RSpec.describe "YAML country_code matches file name" do # rubocop:disable RSpec/DescribeClass
+  Dir.glob(File.expand_path("../lib/legal_interest_strategies/data/strategies/*.yml", __dir__)).each do |file_path|
+    file_name = File.basename(file_path, ".yml")
+    it "matches for #{file_name}.yml" do
+      data = YAML.load_file(file_path)
+      expect(data["country_code"]).to eq(file_name)
+    end
+  end
+end
