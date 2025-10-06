@@ -1,4 +1,4 @@
-country_code: NL
+country_code: BE
 strategies:
   - business: true
     consumer: false
