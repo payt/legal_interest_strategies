@@ -10,7 +10,7 @@ module LegalInterestStrategies
 
     raise CountryNotFound, "No strategy found for country code: #{country_code}" unless File.exist?(path)
 
-    YAML.load_file(path)
+    YAML.safe_load_file(path, permitted_classes: [Date])
   end
 
   def self.business_rates_for_country(country_code)
