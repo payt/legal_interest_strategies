@@ -9,7 +9,7 @@ RSpec.describe LegalInterestStrategies do
     subject(:for_country) { described_class.for_country(country_code) }
 
     it "loads strategies for NL" do
-      expect(for_country).to include("country_code" => "NL", "strategies" => an_instance_of(Array))
+      expect(for_country).to include(country_code: "NL", strategies: an_instance_of(Array))
     end
 
     context "when no country file exists for the given country_code" do
@@ -29,13 +29,13 @@ RSpec.describe LegalInterestStrategies do
     end
 
     it "returns the right last business strategy rate" do
-      expect(business_rates_for_country.last).to eq({ "from_date" => Date.parse("2025-07-01"), "rate" => 10.15 })
+      expect(business_rates_for_country.last).to eq({ from_date: Date.parse("2025-07-01"), rate: 10.15 })
     end
 
     context "when there is no business strategy" do
       before do
         allow(described_class).to receive(:for_country).with(country_code).and_return(
-          { "country_code" => country_code, "strategies" => [{ "business" => true }] }
+          { country_code: country_code, strategies: [{ business: true }] }
         )
       end
 
@@ -53,13 +53,13 @@ RSpec.describe LegalInterestStrategies do
     end
 
     it "returns the right last consumer strategy rate" do
-      expect(consumer_rates_for_country.last).to eq({ "from_date" => Date.parse("2025-01-01"), "rate" => 6.0 })
+      expect(consumer_rates_for_country.last).to eq({ from_date: Date.parse("2025-01-01"), rate: 6.0 })
     end
 
     context "when there is no consumer strategy" do
       before do
         allow(described_class).to receive(:for_country).with(country_code).and_return(
-          { "country_code" => country_code, "strategies" => [{ "consumer" => true }] }
+          { country_code: country_code, strategies: [{ consumer: true }] }
         )
       end
 
@@ -74,8 +74,8 @@ RSpec.describe "YAML country_code matches file name" do # rubocop:disable RSpec/
   Dir.glob(File.expand_path("../lib/legal_interest_strategies/data/strategies/*.yml", __dir__)).each do |file_path|
     file_name = File.basename(file_path, ".yml")
     it "matches for #{file_name}.yml" do
-      data = YAML.safe_load_file(file_path, permitted_classes: [Date])
-      expect(data["country_code"]).to eq(file_name)
+      data = YAML.safe_load_file(file_path, permitted_classes: [Date], symbolize_names: true)
+      expect(data[:country_code]).to eq(file_name)
     end
   end
 end
@@ -83,12 +83,12 @@ end
 RSpec.describe "YAML dates are set chronologically" do # rubocop:disable RSpec/DescribeClass
   Dir.glob(File.expand_path("../lib/legal_interest_strategies/data/strategies/*.yml", __dir__)).each do |file_path|
     file_name = File.basename(file_path, ".yml")
-    data = YAML.safe_load_file(file_path, permitted_classes: [Date])
-    data["strategies"].each do |strategy|
-      next unless strategy["rates"]
+    data = YAML.safe_load_file(file_path, permitted_classes: [Date], symbolize_names: true)
+    data[:strategies].each do |strategy|
+      next unless strategy[:rates]
 
-      it "are chronological for #{file_name}.yml #{strategy['business'] ? 'business' : 'consumer'}" do
-        dates = strategy["rates"].map { |rate| rate["from_date"] }
+      it "are chronological for #{file_name}.yml #{strategy[:business] ? 'business' : 'consumer'}" do
+        dates = strategy[:rates].map { |rate| rate[:from_date] }
         expect(dates).to eq(dates.sort)
       end
     end
