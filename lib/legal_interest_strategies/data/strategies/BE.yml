@@ -2,99 +2,99 @@ country_code: BE
 strategies:
   - business: true
     consumer: false
-    source: "https://financien.belgium.be/sites/default/files/thesaurie/Wettelijke%20rentevoet%20tweede%20semestre%202025.pdf"
+    source: https://financien.belgium.be/sites/default/files/thesaurie/Wettelijke%20rentevoet%20tweede%20semestre%202025.pdf
     rates:
-      - from_date: "1970-07-01"
+      - from_date: 1970-07-01
         rate: 6.5
-      - from_date: "1974-11-01"
+      - from_date: 1974-11-01
         rate: 8.0
-      - from_date: "1981-08-01"
+      - from_date: 1981-08-01
         rate: 12.0
-      - from_date: "1985-08-01"
+      - from_date: 1985-08-01
         rate: 10.0
-      - from_date: "1986-08-01"
+      - from_date: 1986-08-01
         rate: 8.0
-      - from_date: "1996-09-01"
+      - from_date: 1996-09-01
         rate: 7.0
-      - from_date: "2002-08-02"
+      - from_date: 2002-08-02
         rate: 10.5
-      - from_date: "2003-01-01"
+      - from_date: 2003-01-01
         rate: 10.0
-      - from_date: "2003-07-01"
+      - from_date: 2003-07-01
         rate: 9.5
-      - from_date: "2006-07-01"
+      - from_date: 2006-07-01
         rate: 10.0
-      - from_date: "2007-01-01"
+      - from_date: 2007-01-01
         rate: 11.0
-      - from_date: "2007-07-01"
+      - from_date: 2007-07-01
         rate: 11.5
-      - from_date: "2009-01-01"
+      - from_date: 2009-01-01
         rate: 9.5
-      - from_date: "2009-07-01"
+      - from_date: 2009-07-01
         rate: 8.0
-      - from_date: "2011-07-01"
+      - from_date: 2011-07-01
         rate: 8.5
-      - from_date: "2012-01-01"
+      - from_date: 2012-01-01
         rate: 8.0
-      - from_date: "2013-07-01"
+      - from_date: 2013-07-01
         rate: 7.5
-      - from_date: "2015-07-01"
+      - from_date: 2015-07-01
         rate: 8.5
-      - from_date: "2016-07-01"
+      - from_date: 2016-07-01
         rate: 8.0
-      - from_date: "2023-01-01"
+      - from_date: 2023-01-01
         rate: 10.5
-      - from_date: "2023-07-01"
+      - from_date: 2023-07-01
         rate: 12.0
-      - from_date: "2024-01-01"
+      - from_date: 2024-01-01
         rate: 12.5
-      - from_date: "2025-01-01"
+      - from_date: 2025-01-01
         rate: 11.5
-      - from_date: "2025-07-01"
+      - from_date: 2025-07-01
         rate: 10.5
   - business: false
     consumer: true
-    source: "https://financien.belgium.be/sites/default/files/thesaurie/Wettelijke%20rentevoet%20tweede%20semestre%202025.pdf"
+    source: https://financien.belgium.be/sites/default/files/thesaurie/Wettelijke%20rentevoet%20tweede%20semestre%202025.pdf
     rates:
-      - from_date: "1970-07-01"
+      - from_date: 1970-07-01
         rate: 6.5
-      - from_date: "1974-11-01"
+      - from_date: 1974-11-01
         rate: 8.0
-      - from_date: "1981-08-01"
+      - from_date: 1981-08-01
         rate: 12.0
-      - from_date: "1985-08-01"
+      - from_date: 1985-08-01
         rate: 10.0
-      - from_date: "1986-08-01"
+      - from_date: 1986-08-01
         rate: 8.0
-      - from_date: "1996-09-01"
+      - from_date: 1996-09-01
         rate: 7.0
-      - from_date: "2007-01-01"
+      - from_date: 2007-01-01
         rate: 6.0
-      - from_date: "2008-01-01"
+      - from_date: 2008-01-01
         rate: 7.0
-      - from_date: "2009-01-01"
+      - from_date: 2009-01-01
         rate: 5.5
-      - from_date: "2010-01-01"
+      - from_date: 2010-01-01
         rate: 3.25
-      - from_date: "2011-01-01"
+      - from_date: 2011-01-01
         rate: 3.75
-      - from_date: "2012-01-01"
+      - from_date: 2012-01-01
         rate: 4.25
-      - from_date: "2013-01-01"
+      - from_date: 2013-01-01
         rate: 2.75
-      - from_date: "2015-01-01"
+      - from_date: 2015-01-01
         rate: 2.5
-      - from_date: "2016-01-01"
+      - from_date: 2016-01-01
         rate: 2.25
-      - from_date: "2017-01-01"
+      - from_date: 2017-01-01
         rate: 2.0
-      - from_date: "2020-01-01"
+      - from_date: 2020-01-01
         rate: 1.75
-      - from_date: "2022-01-01"
+      - from_date: 2022-01-01
         rate: 1.5
-      - from_date: "2023-01-01"
+      - from_date: 2023-01-01
         rate: 5.25
-      - from_date: "2024-01-01"
+      - from_date: 2024-01-01
         rate: 5.75
-      - from_date: "2025-01-01"
+      - from_date: 2025-01-01
         rate: 4.5
