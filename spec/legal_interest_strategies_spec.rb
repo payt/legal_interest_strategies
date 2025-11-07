@@ -5,6 +5,26 @@ require_relative "../lib/legal_interest_strategies"
 RSpec.describe LegalInterestStrategies do
   let(:country_code) { "NL" }
 
+  describe ".country_code_supported?" do
+    subject(:country_code_supported?) { described_class.country_code_supported?(country_code) }
+
+    it "returns true for supported country codes" do
+      expect(country_code_supported?).to be true
+    end
+
+    it "returns false for unsupported country codes" do
+      expect(described_class.country_code_supported?("XX")).to be false
+    end
+  end
+
+  describe ".supported_country_codes" do
+    subject(:supported_country_codes) { described_class.supported_country_codes }
+
+    it "returns an array of country codes" do
+      expect(supported_country_codes).to contain_exactly("BE", "NL")
+    end
+  end
+
   describe ".for_country" do
     subject(:for_country) { described_class.for_country(country_code) }
 
@@ -91,6 +111,20 @@ RSpec.describe "YAML dates are set chronologically" do # rubocop:disable RSpec/D
         dates = strategy[:rates].map { |rate| rate[:from_date] }
         expect(dates).to eq(dates.sort)
       end
+    end
+  end
+end
+
+RSpec.describe "Both consumer and business strategies are present" do # rubocop:disable RSpec/DescribeClass
+  Dir.glob(File.expand_path("../lib/legal_interest_strategies/data/strategies/*.yml", __dir__)).each do |file_path|
+    file_name = File.basename(file_path, ".yml")
+
+    it "contains both consumer and business strategies in #{file_name}.yml", :aggregate_failures do
+      data = YAML.safe_load_file(file_path, permitted_classes: [Date], symbolize_names: true)
+      strategies = data.fetch(:strategies, [])
+
+      expect(strategies.any? { |s| s[:business] }).to be true
+      expect(strategies.any? { |s| s[:consumer] }).to be true
     end
   end
 end
