@@ -10,9 +10,10 @@ module LegalInterestStrategies
   end
 
   def self.supported_country_codes
-    Dir.glob(File.expand_path("legal_interest_strategies/data/strategies/*.yml", __dir__)).map do |file_path|
-      File.basename(file_path, ".yml")
-    end
+    @supported_country_codes ||=
+      Dir.glob(File.expand_path("legal_interest_strategies/data/strategies/*.yml", __dir__)).map do |file_path|
+        File.basename(file_path, ".yml")
+      end
   end
 
   def self.for_country(country_code)
