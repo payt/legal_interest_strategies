@@ -21,7 +21,7 @@ RSpec.describe LegalInterestStrategies do
     subject(:supported_country_codes) { described_class.supported_country_codes }
 
     it "returns an array of country codes" do
-      expect(supported_country_codes).to contain_exactly("BE", "NL")
+      expect(supported_country_codes).to contain_exactly("BE", "FR", "NL")
     end
   end
 
