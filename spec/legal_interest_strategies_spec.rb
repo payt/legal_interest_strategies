@@ -128,3 +128,16 @@ RSpec.describe "Both consumer and business strategies are present" do # rubocop:
     end
   end
 end
+
+RSpec.describe "YAML compounding_period is set" do # rubocop:disable RSpec/DescribeClass
+  Dir.glob(File.expand_path("../lib/legal_interest_strategies/data/strategies/*.yml", __dir__)).each do |file_path|
+    file_name = File.basename(file_path, ".yml")
+    data = YAML.safe_load_file(file_path, permitted_classes: [Date], symbolize_names: true)
+    data[:strategies].each do |strategy|
+      it "is set for #{file_name}.yml #{strategy[:business] ? 'business' : 'consumer'}", :aggregate_failures do
+        expect(strategy).to have_key(:compounding_period)
+        expect(["none", "year"]).to include(strategy[:compounding_period]) # rubocop:disable RSpec/ExpectActual
+      end
+    end
+  end
+end

@@ -2,6 +2,7 @@ country_code: BE
 strategies:
   - business: true
     consumer: false
+    compounding_period: "year"
     source: https://financien.belgium.be/sites/default/files/thesaurie/Wettelijke%20rentevoet%20tweede%20semestre%202025.pdf
     rates:
       - from_date: 1970-07-01
@@ -54,6 +55,7 @@ strategies:
         rate: 10.5
   - business: false
     consumer: true
+    compounding_period: "year"
     source: https://financien.belgium.be/sites/default/files/thesaurie/Wettelijke%20rentevoet%20tweede%20semestre%202025.pdf
     rates:
       - from_date: 1970-07-01

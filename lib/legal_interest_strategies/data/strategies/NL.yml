@@ -2,6 +2,7 @@ country_code: NL
 strategies:
   - business: true
     consumer: false
+    compounding_period: "year"
     rates:
       - from_date: 1934-01-01
         rate: 5.0
@@ -107,6 +108,7 @@ strategies:
         rate: 10.15
   - business: false
     consumer: true
+    compounding_period: "year"
     rates:
       - from_date: 1934-01-01
         rate: 5.0
