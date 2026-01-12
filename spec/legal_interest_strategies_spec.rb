@@ -73,7 +73,7 @@ RSpec.describe LegalInterestStrategies do
     end
 
     it "returns the right last consumer strategy rate" do
-      expect(consumer_rates_for_country.last).to eq({ from_date: Date.parse("2025-01-01"), rate: 6.0 })
+      expect(consumer_rates_for_country.last).to eq({ from_date: Date.parse("2026-01-01"), rate: 4.0 })
     end
 
     context "when there is no consumer strategy" do
