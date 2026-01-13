@@ -1,0 +1,79 @@
+name: Code quality
+
+# Trigger on changes to pull requests and pushes to the master branch
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+# Cancel any in-progress runs for the same PR, but do not cancel runs for master
+concurrency:
+  group: ${{ github.workflow }}-${{ (github.ref_name == github.event.repository.default_branch && github.run_id) || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: Code quality
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10 # default is 360, but we want to fail fast if something is wrong
+    permissions:
+      contents: read # Checkout the repository
+      pull-requests: write # PR annotations
+      checks: write # Set the status of the check
+
+    env:
+      RUBOCOP_CACHE_ROOT: tmp/rubocop
+
+    steps:
+      ### SETUP ###
+
+      - name: Checkout current commit
+        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v5
+        with:
+          fetch-depth: 0 # we need the full history to compare with the base branch. This is also faster than having changed-files fetch the history again.
+
+      - name: Detect changes to relevant files
+        uses: tj-actions/changed-files@e0021407031f5be11a464abee9a0776171c79891 # v47
+        id: file_changes
+        with:
+          files_yaml: |
+            rubocop:
+              - lib/custom_cops/**/*
+              - "**/.rubocop.yml"
+              - "**/.rubocop_todo.yml"
+              - .ruby-version
+              - Gemfile.lock
+            bundler_audit:
+              - Gemfile.lock
+
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@675dd7ba1b06c8786a1480d89c384f5620a42647 # v1.281.0
+        with:
+          bundler-cache: true
+
+      - name: Install development dependencies
+        run: bundle install --with development
+
+      ### RUBOCOP ###
+
+      - name: Rubocop (full run)
+        if: steps.file_changes.outputs.rubocop_any_changed == 'true'
+        uses: reviewdog/action-rubocop@b6d5e953a5fc0bf3ab65254e77730ea2174d6d6d # v2.22.0
+        with:
+          skip_install: true
+          use_bundler: true
+          only_changed: false # check all files in the repository
+          filter_mode: nofilter # report all issues in the repository
+
+      ### BUNDLER-AUDIT ###
+
+      # Bundler-Audit is only run if the Gemfile.lock changed. This prevents developers from installing vulnerable gems.
+      # For CVEs that are reported on already installed gems, we rely on Dependabot.
+      - name: Bundler audit
+        if: steps.file_changes.outputs.bundler_audit_any_changed == 'true'
+        # Use tomferreira/action-bundler-audit@v1 when this PR is merged:
+        # https://github.com/tomferreira/action-bundler-audit/pull/3
+        uses: payt/action-bundler-audit@a62d5a11b23d843cea988dd0d741dbee3af8d56b # @main
+        with:
+          bundler_audit_version: gemfile

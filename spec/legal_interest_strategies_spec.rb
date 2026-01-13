@@ -2,7 +2,7 @@
 
 require_relative "../lib/legal_interest_strategies"
 
-RSpec.describe LegalInterestStrategies do
+RSpec.describe LegalInterestStrategies do # rubocop:disable RSpec/MultipleDescribes
   let(:country_code) { "NL" }
 
   describe ".country_code_supported?" do
@@ -92,22 +92,20 @@ end
 
 RSpec.describe "YAML country_code matches file name" do # rubocop:disable RSpec/DescribeClass
   Dir.glob(File.expand_path("../lib/legal_interest_strategies/data/strategies/*.yml", __dir__)).each do |file_path|
-    file_name = File.basename(file_path, ".yml")
-    it "matches for #{file_name}.yml" do
+    it "matches for #{File.basename(file_path, '.yml')}.yml" do
       data = YAML.safe_load_file(file_path, permitted_classes: [Date], symbolize_names: true)
-      expect(data[:country_code]).to eq(file_name)
+      expect(data[:country_code]).to eq(File.basename(file_path, ".yml"))
     end
   end
 end
 
 RSpec.describe "YAML dates are set chronologically" do # rubocop:disable RSpec/DescribeClass
   Dir.glob(File.expand_path("../lib/legal_interest_strategies/data/strategies/*.yml", __dir__)).each do |file_path|
-    file_name = File.basename(file_path, ".yml")
-    data = YAML.safe_load_file(file_path, permitted_classes: [Date], symbolize_names: true)
-    data[:strategies].each do |strategy|
-      next unless strategy[:rates]
+    it "has chronologically ordered dates for #{File.basename(file_path, '.yml')}.yml" do # rubocop:disable RSpec/ExampleLength
+      data = YAML.safe_load_file(file_path, permitted_classes: [Date], symbolize_names: true)
+      data[:strategies].each do |strategy|
+        next unless strategy[:rates]
 
-      it "are chronological for #{file_name}.yml #{strategy[:business] ? 'business' : 'consumer'}" do
         dates = strategy[:rates].map { |rate| rate[:from_date] }
         expect(dates).to eq(dates.sort)
       end
@@ -117,9 +115,8 @@ end
 
 RSpec.describe "Both consumer and business strategies are present" do # rubocop:disable RSpec/DescribeClass
   Dir.glob(File.expand_path("../lib/legal_interest_strategies/data/strategies/*.yml", __dir__)).each do |file_path|
-    file_name = File.basename(file_path, ".yml")
-
-    it "contains both consumer and business strategies in #{file_name}.yml", :aggregate_failures do
+    it "contains both consumer and business strategies in #{File.basename(file_path, '.yml')}.yml",
+       :aggregate_failures do
       data = YAML.safe_load_file(file_path, permitted_classes: [Date], symbolize_names: true)
       strategies = data.fetch(:strategies, [])
 
