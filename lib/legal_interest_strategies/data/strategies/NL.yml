@@ -172,3 +172,5 @@ strategies:
         rate: 7.0
       - from_date: 2025-01-01
         rate: 6.0
+      - from_date: 2026-01-01
+        rate: 4.0
