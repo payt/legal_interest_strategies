@@ -1,4 +1,4 @@
-name: Tests
+name: Code coverage
 
 on:
   pull_request:
@@ -12,7 +12,7 @@ concurrency:
 
 jobs:
   test:
-    name: RSpec
+    name: Code coverage
     runs-on: ubuntu-24.04
     timeout-minutes: 10
 

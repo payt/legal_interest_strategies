@@ -16,4 +16,6 @@ group :development do
   gem "rubocop", "1.81.7", require: false
   gem "rubocop-performance"
   gem "rubocop-rspec"
+
+  gem "simplecov", require: false
 end
