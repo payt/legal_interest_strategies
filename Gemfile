@@ -6,6 +6,10 @@ source "https://rubygems.org"
 gemspec
 
 group :development do
+  # SECURITY CHECKS
+  gem "brakeman", require: false
+  gem "bundler-audit", require: false
+
   gem "pry"
   gem "rspec"
   # NOTE: this version is locked because of local server incompatibility errors.

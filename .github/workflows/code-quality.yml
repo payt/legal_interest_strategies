@@ -66,6 +66,30 @@ jobs:
           only_changed: false # check all files in the repository
           filter_mode: nofilter # report all issues in the repository
 
+      ### BRAKEMAN ###
+
+      # Brakeman does not support incremental analysis, so it is always run on all files if any relevant file changed
+      # and if Brakeman itself is updated in the Gemfile.lock.
+      - name: Brakeman
+        if: steps.file_changes.outputs.brakeman_any_changed == 'true'
+        uses: reviewdog/action-brakeman@5083efd49634e26645a0736681b618ccc3fb7f14 # v2.19.2
+        with:
+          skip_install: true
+          use_bundler: true
+          brakeman_flags: --run-all-checks
+          filter_mode: nofilter # report all issues in the repository
+
+      # If no relevant files changed, run Brakeman on a directory without Ruby files to produce a fast success report.
+      # This is necessary to be able to require the code quality check in PRs even if no relevant files changed.
+      - name: Brakeman
+        if: steps.file_changes.outputs.brakeman_any_changed == 'false'
+        uses: reviewdog/action-brakeman@5083efd49634e26645a0736681b618ccc3fb7f14 # v2.19.2
+        with:
+          skip_install: true
+          use_bundler: true
+          workdir: .github
+          brakeman_flags: --force
+
       ### BUNDLER-AUDIT ###
 
       # Bundler-Audit is only run if the Gemfile.lock changed. This prevents developers from installing vulnerable gems.
