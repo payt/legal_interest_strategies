@@ -58,6 +58,8 @@ strategies:
         rate: 13.15
       - from_date: 2025-07-01
         rate: 12.15
+      - from_date: 2026-07-01
+        rate: 12.75
   - business: false
     consumer: true
     source: https://www.service-public.gouv.fr/particuliers/vosdroits/F783?lang=en, court order needed
